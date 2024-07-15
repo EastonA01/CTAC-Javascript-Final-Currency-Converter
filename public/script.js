@@ -194,12 +194,12 @@ async function fetchFavoritePairs() {
         container.innerHTML = ''; // Clear container if there is anything inside
         // Loop
         pairs.forEach(pair => {
-            const div = document.createElement('div');
-            div.textContent = `${pair.baseCurrency} to ${pair.targetCurrency}`;
-            div.classList.add('favorite-pair');
-            div.dataset.baseCurrency = pair.baseCurrency;
-            div.dataset.targetCurrency = pair.targetCurrency;
-            container.appendChild(div);
+            const button = document.createElement('button');
+            button.textContent = `${pair.baseCurrency} / ${pair.targetCurrency}`;
+            button.classList.add('favorite-pair');
+            button.dataset.baseCurrency = pair.baseCurrency;
+            button.dataset.targetCurrency = pair.targetCurrency;
+            container.appendChild(button);
         });
 
         // Add click event listeners to favorite pairs
