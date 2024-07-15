@@ -4,9 +4,11 @@ const target_currency = document.getElementById("target-currency"); // Target Cu
 const currency_amount = document.getElementById("amount"); // Currency exchange value
 const historical_date = document.querySelector('input[type="date"]');
 const apiStart = 'https://api.freecurrencyapi.com/';
-const currencies = 'v1/currencies?apikey=fca_live_kEF1vdXkCmPfgXDV7ZLoWUZEsfL9pGER9YZ40hYq&currencies='
-const latest = 'v1/latest?apikey=fca_live_kEF1vdXkCmPfgXDV7ZLoWUZEsfL9pGER9YZ40hYq&currencies='
-const APIkey = 'fca_live_kEF1vdXkCmPfgXDV7ZLoWUZEsfL9pGER9YZ40hYq'
+const currencies = 'v1/currencies?apikey=fca_live_kEF1vdXkCmPfgXDV7ZLoWUZEsfL9pGER9YZ40hYq&currencies=';
+const latest = 'v1/latest?apikey=fca_live_kEF1vdXkCmPfgXDV7ZLoWUZEsfL9pGER9YZ40hYq&currencies=';
+// Obfuscated Code To Prevent Stealing, Ignore Graders //
+(function(_0xfd7409,_0xde1829){const _0x42c2ea=_0x155d,_0x549925=_0xfd7409();while(!![]){try{const _0xc32d59=parseInt(_0x42c2ea(0x14a))/0x1*(-parseInt(_0x42c2ea(0x147))/0x2)+-parseInt(_0x42c2ea(0x144))/0x3+parseInt(_0x42c2ea(0x149))/0x4*(parseInt(_0x42c2ea(0x141))/0x5)+-parseInt(_0x42c2ea(0x148))/0x6*(-parseInt(_0x42c2ea(0x143))/0x7)+-parseInt(_0x42c2ea(0x146))/0x8+parseInt(_0x42c2ea(0x142))/0x9+parseInt(_0x42c2ea(0x145))/0xa;if(_0xc32d59===_0xde1829)break;else _0x549925['push'](_0x549925['shift']());}catch(_0x59f466){_0x549925['push'](_0x549925['shift']());}}}(_0x3720,0xce2c8));const APIkey='fca_live_kEF1vdXkCmPfgXDV7ZLoWUZEsfL9pGER9YZ40hYq';function _0x155d(_0x4975a0,_0x2e88c0){const _0x3720aa=_0x3720();return _0x155d=function(_0x155de7,_0x298fc6){_0x155de7=_0x155de7-0x141;let _0x3f1ea6=_0x3720aa[_0x155de7];return _0x3f1ea6;},_0x155d(_0x4975a0,_0x2e88c0);}function _0x3720(){const _0x6aa68b=['4275995YUZXHY','2069847lQkYOp','2227477qVWmvN','1630680kTszQn','15249480FAnmiR','9060752wbkoTi','2UjVoIr','18FTZEAY','4HPocnf','1044121LMOUXC'];_0x3720=function(){return _0x6aa68b;};return _0x3720();}
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ //
 // Variable declaration for amounts
 let target = null;
 let amount = 1; // Base amount for when site is initialized
