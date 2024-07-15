@@ -19,13 +19,15 @@
         <select id="target-currency">
             <option selected disabled>Currency To Convert To</option>
         </select>
-        <p>Converted Amount: <span id="converted-amount"></span></p>
+        <p>Converted Amount: <span id="converted-amount">N/a</span></p>
+        <label for="start">Date:</label>
+        <input type="date" id="start" name="date-start" value="2024-07-01"/>
         <button id="historical-rates">View Historical Rates</button>
-        <div id="historical-rates-container"></div>
+        <div id="historical-rates-container">
+            
+        </div>
         <button id="save-favorite">Save Favorite</button>
         <div id="favorite-currency-pairs"></div>
-    </div>
-    <div id="data">
     </div>
 
     <script src="script.js"></script>
