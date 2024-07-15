@@ -9,7 +9,7 @@ const currencies = 'v1/currencies?apikey=fca_live_kEF1vdXkCmPfgXDV7ZLoWUZEsfL9pG
 const latest = 'v1/latest?apikey=fca_live_kEF1vdXkCmPfgXDV7ZLoWUZEsfL9pGER9YZ40hYq&currencies='
 // Variable declaration for amounts
 let target = null;
-let amount = null;
+let amount = 1; // Base amount for when site is initialized
 let base = null;
 //^^ Global Variable Declarations ^^//
 
@@ -64,6 +64,12 @@ currency_amount.addEventListener('change', function(event) {
     // Log the value to the console
     console.log('Amount:', selectedValue);
     amount = selectedValue;
+    if(target != null || base != null){
+      latestFetch();
+  }
+  else{
+      alert("Please pick a target and/or base value!")
+  }
 });
 base_currency.addEventListener('change', function(event) {  // Event listener for when base currencies change
     // Get the value of the selected option
@@ -73,7 +79,7 @@ base_currency.addEventListener('change', function(event) {  // Event listener fo
     console.log('Base value:', selectedValue);
     base = selectedValue;
     if(target != null){
-        conversion();
+        latestFetch();
     }
     else{
         alert("Please pick a target value!")
@@ -88,7 +94,7 @@ target_currency.addEventListener('change', function(event) { // Target event lis
     target = selectedValue;
     // Check if base currency != null
     if(base != null){
-        conversion();
+        latestFetch();
     }
     else{
         alert("Please pick a base value!")
@@ -96,49 +102,35 @@ target_currency.addEventListener('change', function(event) { // Target event lis
 });
 
 // Function that on change of currencies or amount- update converted-amount
-const conversion = async () => {
+const latestFetch = async () => {
     try {
         // Make the fetch request
         // let response = await fetch(`${apiStart}${latest}${base}%2C${target}`)
         // // INTERIM FETCH RESPONSE DELETE LATER!
-        const response = await fetch(`http://localhost:4000/conversion`)
+        const response = await fetch(`http://localhost:4000/latest`)
         .then(response => response.json()) // Parse
         .then(data => {
               //  Pass data to display function
-              displayLatest(data);
+              conversion(data);
         })
-        
         // Check if the response is okay (status code 200-299)
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-     
-        // Parse the JSON from the response
-        const data = await response.json();
     } catch (error) {
       // Handle errors
       console.error('There has been a problem with your fetch operation:', error);
     }
 }
 
-// TODO: Display data in a easily digestible format so that we may use the values to generate conversions
-function displayLatest(data){
-    let display = document.getElementById('data');
-    let input = document.createElement('p');
-    input.innerHTML = JSON.stringify(data.data, null, 2);  
-    display.appendChild(input);
-    console.log(`Data is ${data}`);
-    console.log(`Data.data is ${data.data}`);
-    object_keys = Object.keys(data.data);
-    console.log(`Object keys is ${object_keys}`);
-    console.log(object_keys);
-    // object_keys.forEach(key => {
-    //   console.log(object_keys);
-    // });
-    // // data = Object.keys(data.EUR);
-    // data.forEach(item => {
-    //     console.log(data);
-    // });
+// Generate currency conversion with data from conversion
+function conversion(data){
+  // Receive rate
+  let rate = Object.values(data.data)[0];
+  // Convert Rate
+  let convertedAmount = amount * rate;
+  let formattedNumber = Math.round(convertedAmount * 100) / 100;
+  // Display rate
+  let display = document.getElementById('converted-amount');
+  display.innerHTML = `$${formattedNumber}`;
 }
-
-// TODO: Generate currency conversion with data from displayLatest
