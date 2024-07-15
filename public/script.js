@@ -24,6 +24,9 @@ const getCurrencies = async () => {
       
       // Check if the response is okay (status code 200-299)
       if (!response.ok) {
+        if (response.status === 429) {
+            alert('You have reached the maximum number of requests. Please try again later.');
+          }
         throw new Error('Network response was not ok');
       }
       
@@ -134,19 +137,33 @@ historical_date.addEventListener('change', function(event) { // Date event liste
 
 // Function that on change of currencies or amount- update converted-amount
 const latestFetch = async () => {
-    const response = await fetch(`${apiStart}${latest}${target}&base_currency=${base}`);
-    const data = await response.json();
-    const exchangeRate = data.data[target]; // Change 'target' to the desired currency code
-
-    const convertedAmount = amount * exchangeRate;
-    // console.log(`Converted Amount: ${convertedAmount}`); // Testing for exchange rate, ignore
-    const resultElement = document.getElementById('converted-amount');
-    resultElement.innerHTML = `${convertedAmount.toFixed(2)} ${target}`;
+    try {
+        const response = await fetch(`${apiStart}${latest}${target}&base_currency=${base}`);
+        if (!response.ok) {
+            if (response.status === 429) {
+                alert('You have reached the maximum number of requests. Please try again later.');
+            }
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        const exchangeRate = data.data[target];
+        const convertedAmount = amount * exchangeRate;
+        const resultElement = document.getElementById('converted-amount');
+        resultElement.innerHTML = `${convertedAmount.toFixed(2)} ${target}`;
+    } catch (error) {
+        console.error('There has been a problem with your fetch operation:', error);
+    }
 }
 
 const histoRates = async () => {
-    // API Request
-    const response = await fetch(`${apiStart}v1/historical?apikey=${APIkey}&currencies=${target}&date=${date}&base_currency=${base}`);
+    try {
+        const response = await fetch(`${apiStart}v1/historical?apikey=${APIkey}&currencies=${target}&date=${date}&base_currency=${base}`);
+        if (!response.ok) {
+            if (response.status === 429) {
+                alert('You have reached the maximum number of requests. Please try again later.');
+            }
+            throw new Error('Network response was not ok');
+        }
     // Response data
     const data = await response.json();
     // Get rate @ object data.data @ position of Target (in this case currency code like 'EUR' or 'USD')
@@ -155,6 +172,9 @@ const histoRates = async () => {
     const histoContainer = document.getElementById("historical-rates-container");
     // console.log(histoRate); // Testing log, ignore
     histoContainer.innerHTML = `${base} to ${target} conversion rate on ${date} was $${histoRate.toFixed(2)}`;
+    } catch (error) {
+        console.error('There has been a problem with your fetch operation:', error);
+    }
 }
 // Event listener to get historical rates
 const btn = document.getElementById("historical-rates");
